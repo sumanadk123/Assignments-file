@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Generator</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    }
+    .container{
+        max-width: 500px;
+        margin: 100px auto;
+        padding: 30px;
+        border: 1px solid gray;
+        border-radius: 10px;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.8);
+        background-color: #f4f4f4;
+    }
+    .input{
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin: 20px 0px;
+    }
+    input[type="number"]{
+        width: 50%;
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    button{
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    button:hover{
+        background-color: black;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    }
+    .output{
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    #grade{
+        font-weight: bold;
+    }
+    </style>
+    <script>
+        function generateGrade() {
+            let score = document.getElementById("score");
+            console.log(typeof(score));
+            let grade = "";
+
+            if (!score.checkValidity()) {
+                document.getElementById("grade").innerHTML = score.validationMessage;
+                document.getElementById("grade").style.color = "red";
+                return
+            }
+
+            score = Number(score.value);
+            if (score >= 90) {
+                grade = "A";
+            } else if (score >= 80) {
+                grade = "B";
+            } else if (score >= 70) {
+                grade = "C";
+            } else {
+                grade = "D";
+            }
+            document.getElementById("grade").style.color = "black";
+            document.getElementById("grade").innerHTML = `Grade: ${grade}`;
+        }
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Grade Generator</h1>
+        <div class="input">
+            <label for="score">Enter Score:</label>
+            <input type="number" name="score" id="score" min="0" max="100" required>
+            <button type="submit" onclick="generateGrade()">Submit</button>
+        </div>
+        <div class="output">
+            <p><span id="grade"></span></p>
+        </div>
+        <button onclick="goBack()">Go Back</button>
+    </div>
+</body>
+</html>

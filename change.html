@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Change</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    }
+    .container{
+        max-width: 500px;
+        margin: 100px auto;
+        padding: 30px;
+        border: 1px solid gray;
+        border-radius: 10px;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.8);
+        background-color: #f4f4f4;
+    }
+    .input{
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 20px 0;
+    }
+    input[type="number"]{
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    button{
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    button:hover{
+        background-color: black;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    }
+    ul{
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+        list-style-type: none;
+        padding: 0;
+    }
+    #change li{
+        font-weight: bold;
+    }
+    .error{
+        color: red;
+    }
+    </style>
+    <script>
+    function calculateChange() {
+        let amount = document.getElementById("amount");
+        const change = [1000, 500, 100, 50, 20, 10, 5, 2, 1];
+        const changeList = document.getElementById("change");
+        changeList.innerHTML = "";
+
+        if (!amount.checkValidity()) {
+            changeList.innerHTML = amount.validationMessage;
+            changeList.style.color = "red";
+            return
+        }
+
+        amount = Number(amount.value);
+        for (let i = 0; i < change.length; i++) {
+            const count = Math.floor(amount / change[i]);
+            if (count > 0) {
+                changeList.style.color="black";
+                changeList.innerHTML += `<li>${count} of ฿${change[i]}</li>`;
+                amount = amount % change[i];
+            }
+        }
+    }
+    function goBack() {
+            window.history.back();
+    }
+</script>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculate Change</h1>
+        <div class="input">
+            <label for="amount">Enter Amount:</label>
+            <input type="number" name="amount" id="amount" min="1" required>
+            <button type="submit" onclick="calculateChange()">Submit</button>
+        </div>
+        <!-- <p class="error"></p> -->
+        <div class="output">
+            <ul id="change">
+            </ul>
+        </div>
+        <button onclick="goBack()">Go Back</button>
+    </div>
+    
+</body>
+</html>
