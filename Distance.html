@@ -63,6 +63,7 @@
         <h1>Distance Checker</h1>
         <button onclick="checkDistance()">Where am I?</button>
         <p id="output"></p>
+        <button class="back-btn" onclick="goBack()">Go Back</button>
     </div>
 
     <script>
@@ -106,6 +107,10 @@
 
             navigator.geolocation.getCurrentPosition(success, error);
         }
+        function goBack() {
+      window.history.back();
+    }
     </script>
 </body>
 </html>
+
