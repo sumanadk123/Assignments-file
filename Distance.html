@@ -1,116 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Distance Calculator</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distance Calculator</title>
+  <style>
+    /* RESET */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #74ebd5, #ACB6E5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #333;
-        }
+    /* BODY */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
 
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
+    /* CONTAINER */
+    .container {
+      background-color: #fff;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: #2c3e50;
-        }
+    /* TITLE */
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #2c3e50;
+    }
 
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
+    /* BUTTON STYLES */
+    .button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
 
-        button:hover {
-            background-color: #2980b9;
-        }
+    button {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
 
-        #output {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: 500;
-        }
-    </style>
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    /* Back Button Style */
+    .back-btn {
+      background-color: #555;
+    }
+
+    .back-btn:hover {
+      background-color: #333;
+    }
+
+    /* OUTPUT TEXT */
+    #output {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px;
+        min-width: 100px;
+      }
+
+      #output {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Distance Checker</h1>
-        <button onclick="checkDistance()">Where am I?</button>
-        <p id="output"></p>
-        <button class="back-btn" onclick="goBack()">Go Back</button>
+  <div class="container">
+    <h1>Distance Checker</h1>
+
+    <!-- Button Group -->
+    <div class="button-group">
+      <button onclick="checkDistance()">Where am I?</button>
+      <button class="back-btn" onclick="goBack()">Go Back</button>
     </div>
 
-    <script>
-        var target = {
-            lat: 13.805392901238022,
-            lon: 100.73962177144537
-        };
+    <!-- Output Display -->
+    <p id="output"></p>
+  </div>
 
-        function toRadians(degrees) {
-            return degrees * (Math.PI / 180);
-        }
+  <script>
+    // Target location (Kasem Bundit University)
+    var target = {
+      lat: 13.805392901238022,
+      lon: 100.73962177144537
+    };
 
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            var R = 6371; // Radius of the earth in km
-            var dLat = toRadians(lat2 - lat1);
-            var dLon = toRadians(lon2 - lon1);
+    // Convert degrees to radians
+    function toRadians(degrees) {
+      return degrees * (Math.PI / 180);
+    }
 
-            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return R * c;
-        }
+    // Calculate distance using Haversine formula
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      var R = 6371; // Radius of Earth in km
+      var dLat = toRadians(lat2 - lat1);
+      var dLon = toRadians(lon2 - lon1);
 
-        function success(position) {
-            var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
-            var distance = calculateDistance(lat, lon, target.lat, target.lon);
-            document.getElementById("output").textContent = "You are " + distance.toFixed(2) + " km away from the Kasem Bundit University.";
-        }
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRadians(lat1)) *
+        Math.cos(toRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
 
-        function error() {
-            document.getElementById("output").textContent = "Unable to retrieve your location. Please allow location access.";
-        }
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c; // Distance in km
+    }
 
-        function checkDistance() {
-            var output = document.getElementById("output");
+    // Success callback for geolocation
+    function success(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      var distance = calculateDistance(lat, lon, target.lat, target.lon);
 
-            if (!navigator.geolocation) {
-                output.textContent = "Geolocation is not supported by your browser.";
-                return;
-            }
+      document.getElementById("output").textContent =
+        "You are " + distance.toFixed(2) + " km away from Kasem Bundit University.";
+    }
 
-            navigator.geolocation.getCurrentPosition(success, error);
-        }
-        function goBack() {
+    // Error callback for geolocation
+    function error() {
+      document.getElementById("output").textContent =
+        "Unable to retrieve your location. Please allow location access.";
+    }
+
+    // Check distance
+    function checkDistance() {
+      var output = document.getElementById("output");
+
+      if (!navigator.geolocation) {
+        output.textContent = "Geolocation is not supported by your browser.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+    // Go back function
+    function goBack() {
       window.history.back();
     }
-    </script>
+  </script>
 </body>
 </html>
-
