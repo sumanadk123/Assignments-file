@@ -1,8 +1,11 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Global Styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f4f4f4;
@@ -24,18 +27,12 @@ body {
   text-align: center;
   margin-bottom: 30px;
 }
-.profile-img {
-  width: 130px;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 15px;
-}
 
 h1 {
   font-size: 32px;
   color: #2c3e50;
 }
+
 h2 {
   font-size: 22px;
   color: #007bff;
@@ -49,6 +46,7 @@ ul {
   list-style: none;
   padding-left: 0;
 }
+
 ul li {
   margin-bottom: 10px;
 }
@@ -59,11 +57,13 @@ ul li ul {
   list-style-type: disc;
 }
 
+/* Grid for Skills & Languages */
 .grid {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 }
+
 .grid li {
   flex: 1 1 45%;
   background: #f0f0f0;
@@ -71,6 +71,44 @@ ul li ul {
   border-radius: 6px;
 }
 
+/* Projects Section */
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.projects div {
+  width: 48%;
+  padding: 15px;
+  background-color: #e2e2e2;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.projects div a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #007bff;
+  font-size: 18px;
+}
+
+.projects div:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+}
+
+@media screen and (max-width: 700px) {
+  .projects div {
+    width: 100%;
+  }
+}
+
+/* Hobbies Section */
 .hobby-grid {
   display: flex;
   flex-wrap: wrap;
@@ -80,7 +118,7 @@ ul li ul {
 }
 
 .hobby-card {
-  flex: 0 1 calc(50% - 15px); 
+  flex: 0 1 calc(50% - 15px);
   background-color: #f9f9f9;
   border-radius: 12px;
   padding: 20px;
@@ -92,22 +130,10 @@ ul li ul {
   transform: translateY(-5px);
 }
 
-.hobby-card h3 {
-  margin-top: 10px;
-  color: #2c3e50;
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.hobby-card p {
-  font-size: 15px;
-  color: #555;
-}
-
 .hobby-img {
   width: 100%;
-  height: 180px; 
-  object-fit:contain;
+  height: 180px;
+  object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -117,31 +143,94 @@ ul li ul {
     flex: 0 1 100%;
   }
 }
-.projects{
-  display:flex;
-  flex-wrap: wrap;
-  gap: 20px;
+/* Navbar Styles */
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-.projects div{
- width: 48%;
- padding: 15px;
- background-color: #e2e2e2;
- border-radius: 12px;
- box-shadow: 0 4px 12px rgba(0,0,0,0.05);
- transition: transform 0.2s ease;
-}
-.projects div{
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
-  gap: 10px;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
 }
-.projects div a{
-  text-decoration: none;
+
+.logo {
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #007bff;
-  font-size: 18px;
+  color: #3498db;
 }
-.projects div:hover{
+
+/* Tab-style links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  display: block;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  color: #333;
+  border: 1px solid transparent;
+  border-radius: 8px 8px 0 0;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+/* Hamburger for mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
   cursor: pointer;
-  transform: translateY(-2px);
+  gap: 5px;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: #333;
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
+/* Mobile menu */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    width: 200px;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    display: none;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }
