@@ -7,14 +7,39 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+<!-- Navbar section -->
+  <nav class="navbar">
+  <div class="nav-container">
+    <h2 class="logo">Resume</h2>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="grade.html" class="active">Grade</a></li>
+      <li><a href="converter.html">Converter</a></li>
+      <li><a href="change.html">Change</a></li>
+      <li><a href="Distance.html">Distance</a></li>
+    </ul>
+
+    <!-- Hamburger Button for Mobile -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+  <!-- Main Content -->
   <div class="container">
+    <!-- Header Section -->
     <header class="center">
       <h1>Suman</h1>
       <p><strong>Phone:</strong> 788377449 | <strong>Email:</strong> adksuman35@gmail.com</p>
       <p><strong>Address:</strong> Kasem Bundit University, Romklao Campus, 60 Romklao Road, Minburi, Bangkok</p>
     </header>
 
-    <section>
+    <!-- Education Section -->
+    <section id="education">
       <h2>Education</h2>
       <ul>
         <li>
@@ -33,7 +58,8 @@
       </ul>
     </section>
 
-    <section>
+    <!-- Work Experience Section -->
+    <section id="experience">
       <h2>Work Experience</h2>
       <ul>
         <li>
@@ -52,13 +78,12 @@
             <li>Managed all stages from planning, discussion, and project flow to implementation and presentation</li>
           </ul>
         </li><br>
-        <li>
-          <strong>Sales Assistant</strong> (2020 – 2022)
-        </li>
+        <li><strong>Sales Assistant</strong> (2020 – 2022)</li>
       </ul>
     </section>
 
-    <section>
+    <!-- Skills Section -->
+    <section id="skills">
       <h2>Skills</h2>
       <ul class="grid">
         <li>Presentation skills</li>
@@ -69,7 +94,8 @@
       </ul>
     </section>
 
-    <section>
+    <!-- Languages Section -->
+    <section id="languages">
       <h2>Languages</h2>
       <ul class="grid">
         <li>English – Confident</li>
@@ -79,13 +105,16 @@
       </ul>
     </section>
 
-    <section>
+    <!-- Hobbies Section -->
+    <section id="hobbies">
       <h2>Hobbies</h2>
-      <p>Want to know more about me? <strong><a href="hobby.html">Click here to know about my hobbies.</a></strong>
+      <p>Want to know more about me? 
+        <strong><a href="hobby.html">Click here to know about my hobbies.</a></strong>
       </p>
     </section>
 
-    <section>
+    <!-- Projects Section -->
+    <section id="projects">
       <h2>My Projects</h2>
       <div class="projects">
         <div>
@@ -111,5 +140,15 @@
       </div>
     </section>
   </div>
+
+  <script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+  });
+</script>
+
 </body>
 </html>
