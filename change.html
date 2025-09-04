@@ -1,112 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculate Change</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculate Change</title>
+  <style>
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    body{
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(to right, #74ebd5, #ACB6E5);
+
+    /* BODY STYLES */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
-    .container{
-        max-width: 500px;
-        margin: 100px auto;
-        padding: 30px;
-        border: 1px solid gray;
-        border-radius: 10px;
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.8);
-        background-color: #f4f4f4;
+
+    /* CONTAINER */
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 30px 20px;
+      background-color: #f4f4f4;
+      border: 1px solid gray;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
     }
-    .input{
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: 20px 0;
+
+    /* HEADING */
+    .container h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #333;
     }
-    input[type="number"]{
-        padding: 10px;
-        border: 1px solid black;
-        border-radius: 5px;
-        font-size: 16px;
+
+    /* INPUT SECTION */
+    .input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-    button{
-        padding: 10px;
-        border: 1px solid black;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
+
+    .input label {
+      font-size: 18px;
+      flex: 1 1 100%;
     }
-    button:hover{
-        background-color: black;
-        color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+
+    input[type="number"] {
+      padding: 10px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      font-size: 16px;
+      flex: 1;
+      min-width: 0;
     }
-    ul{
-        font-size: 20px;
-        display: flex;
+
+    /* BUTTONS */
+    button {
+      padding: 10px 15px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      background-color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #333;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .output ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #change li {
+      font-weight: bold;
+      background: #e8f0fe;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .error {
+      color: red;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+
+    /* RESPONSIVE STYLES */
+    @media screen and (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      .container h1 {
+        font-size: 24px;
+      }
+
+      .input {
         flex-direction: column;
-        gap: 10px;
-        margin-bottom: 20px;
-        list-style-type: none;
-        padding: 0;
+        align-items: stretch;
+        gap: 15px;
+      }
+
+      .input label {
+        text-align: left;
+        font-size: 16px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        font-size: 16px;
+      }
+
+      .output ul {
+        font-size: 16px;
+      }
     }
-    #change li{
-        font-weight: bold;
-    }
-    .error{
-        color: red;
-    }
-    </style>
-    <script>
+  </style>
+
+  <script>
     function calculateChange() {
-        let amount = document.getElementById("amount");
-        const change = [1000, 500, 100, 50, 20, 10, 5, 2, 1];
-        const changeList = document.getElementById("change");
-        changeList.innerHTML = "";
+      let amount = document.getElementById("amount");
+      const change = [1000, 500, 100, 50, 20, 10, 5, 2, 1];
+      const changeList = document.getElementById("change");
+      changeList.innerHTML = "";
 
-        if (!amount.checkValidity()) {
-            changeList.innerHTML = amount.validationMessage;
-            changeList.style.color = "red";
-            return
-        }
+      if (!amount.checkValidity()) {
+        changeList.innerHTML = `<li class="error">${amount.validationMessage}</li>`;
+        return;
+      }
 
-        amount = Number(amount.value);
-        for (let i = 0; i < change.length; i++) {
-            const count = Math.floor(amount / change[i]);
-            if (count > 0) {
-                changeList.style.color="black";
-                changeList.innerHTML += `<li>${count} of ฿${change[i]}</li>`;
-                amount = amount % change[i];
-            }
+      amount = Number(amount.value);
+      for (let i = 0; i < change.length; i++) {
+        const count = Math.floor(amount / change[i]);
+        if (count > 0) {
+          changeList.innerHTML += `<li>${count} of ฿${change[i]}</li>`;
+          amount = amount % change[i];
         }
+      }
     }
+
     function goBack() {
-            window.history.back();
+      window.history.back();
     }
-</script>
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Calculate Change</h1>
-        <div class="input">
-            <label for="amount">Enter Amount:</label>
-            <input type="number" name="amount" id="amount" min="1" required>
-            <button type="submit" onclick="calculateChange()">Submit</button>
-        </div>
-        <!-- <p class="error"></p> -->
-        <div class="output">
-            <ul id="change">
-            </ul>
-        </div>
-        <button onclick="goBack()">Go Back</button>
-    </div>
+  <div class="container">
+    <h1>Calculate Change</h1>
     
+    <!-- Input Section -->
+    <div class="input">
+      <label for="amount">Enter Amount:</label>
+      <input type="number" name="amount" id="amount" min="1" required placeholder="Enter amount here">
+      <button type="submit" onclick="calculateChange()">Submit</button>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output">
+      <ul id="change"></ul>
+    </div>
+
+    <!-- Back Button -->
+    <button onclick="goBack()" style="margin-top: 20px; width: 100%;">Go Back</button>
+  </div>
 </body>
 </html>
